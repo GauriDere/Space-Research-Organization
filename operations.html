@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRO - Operations CRUD</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script>
+        let operations = [];
+        let editingId = null;
+
+        function loadOperations() {
+            operations = JSON.parse(localStorage.getItem("sroOperations") || "[]");
+            renderTable();
+        }
+
+        function saveOperations() {
+            localStorage.setItem("sroOperations", JSON.stringify(operations));
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById("opsBody");
+            tbody.innerHTML = "";
+            operations.forEach(function(op) {
+                const row = document.createElement("tr");
+                row.innerHTML = "<td>" + op.id + "</td>" +
+                                "<td>" + op.project + "</td>" +
+                                "<td>" + op.startDate + "</td>" +
+                                "<td>" + op.objective + "</td>" +
+                                "<td>" + op.status + "</td>" +
+                                "<td><button class='btn-secondary' onclick='editOperation(" + op.id + ")'>Edit</button> " +
+                                "<button class='btn-primary' onclick='deleteOperation(" + op.id + ")'>Delete</button></td>";
+                tbody.appendChild(row);
+            });
+        }
+
+        function submitOperation(event) {
+            event.preventDefault();
+            const project = document.getElementById("project").value.trim();
+            const startDate = document.getElementById("startDate").value.trim();
+            const objective = document.getElementById("objective").value.trim();
+            const status = document.getElementById("status").value.trim();
+            if (!project || !startDate || !objective || !status) {
+                alert("All fields are required.");
+                return false;
+            }
+            if (editingId === null) {
+                operations.push({ id: Date.now(), project: project, startDate: startDate, objective: objective, status: status });
+            } else {
+                operations = operations.map(function(op) {
+                    return op.id === editingId ? { id: op.id, project: project, startDate: startDate, objective: objective, status: status } : op;
+                });
+                editingId = null;
+            }
+            saveOperations();
+            document.getElementById("opForm").reset();
+            renderTable();
+            return false;
+        }
+
+        function editOperation(id) {
+            const op = operations.find(function(item) { return item.id === id; });
+            if (!op) return;
+            editingId = id;
+            document.getElementById("project").value = op.project;
+            document.getElementById("startDate").value = op.startDate;
+            document.getElementById("objective").value = op.objective;
+            document.getElementById("status").value = op.status;
+        }
+
+        function deleteOperation(id) {
+            operations = operations.filter(function(op) { return op.id !== id; });
+            saveOperations();
+            renderTable();
+        }
+
+        window.onload = loadOperations;
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <aside class="sidebar">
+            <div class="brand-block">
+                <img class="brand-logo" src="images/spacelogo.png" alt="Orion logo">
+                <div>
+                    <h2>ORION</h2>
+                    <p>Space Research</p>
+                </div>
+            </div>
+            <nav class="side-nav">
+                <a href="index.html"><i class="fa-solid fa-house"></i>Home</a>
+                <a href="spaceprojects.xml"><i class="fa-solid fa-satellite"></i>Missions</a>
+                <a href="registration.html"><i class="fa-solid fa-address-card"></i>Registration</a>
+                <a href="internship.html"><i class="fa-solid fa-flask-vial"></i>Internship</a>
+                <a class="active" href="operations.html"><i class="fa-solid fa-database"></i>CRUD</a>
+                <a href="login.html"><i class="fa-solid fa-user"></i>Login</a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <nav class="top-nav">
+                <ul class="top-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="spaceprojects.xml">Missions</a></li>
+                    <li><a href="registration.html">Registration</a></li>
+                    <li><a href="internship.html">Internship</a></li>
+                    <li><a class="active" href="operations.html">Operations CRUD</a></li>
+                    <li><a href="live-telemetry-frame.html">Live Telemetry (Frame)</a></li>
+                </ul>
+            </nav>
+            <section class="hero auth-wrap">
+                <p class="hero-kicker">Dynamic Operations</p>
+                <h1>SPACE <span>CRUD</span> MODULE</h1>
+                <div class="panel">
+                    <form id="opForm" onsubmit="return submitOperation(event)">
+                        <div class="form-group"><label for="project">Project Name</label><input id="project" type="text"></div>
+                        <div class="form-group"><label for="startDate">Start Date</label><input id="startDate" type="date"></div>
+                        <div class="form-group"><label for="objective">Objective</label><textarea id="objective" rows="3"></textarea></div>
+                        <div class="form-group"><label for="status">Status</label><select id="status"><option value="">Select</option><option>Planned</option><option>In Progress</option><option>Completed</option></select></div>
+                        <button type="submit" class="btn-primary auth-submit">Save Operation</button>
+                    </form>
+                </div>
+                <div class="panel" style="margin-top:12px;">
+                    <table class="mini-table" style="width:100%;">
+                        <thead><tr><th>ID</th><th>Project</th><th>Start Date</th><th>Objective</th><th>Status</th><th>Actions</th></tr></thead>
+                        <tbody id="opsBody"></tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

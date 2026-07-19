@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRO - Registration</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script>
+        function validateRegistrationForm(event) {
+            event.preventDefault();
+            const form = document.getElementById("registrationForm");
+            const name = form.name.value.trim();
+            const mobile = form.mobile.value.trim();
+            const email = form.email.value.trim();
+            const messageBox = document.getElementById("registration-message");
+            const successBox = document.getElementById("success-message");
+
+            const errors = [];
+            if (!name) {
+                errors.push("Name is required.");
+            } else if (!/^[A-Za-z ]{2,}$/.test(name)) {
+                errors.push("Name must contain only alphabets and spaces.");
+            }
+
+            if (!mobile) {
+                errors.push("Mobile number is required.");
+            } else if (!/^[0-9]{10}$/.test(mobile)) {
+                errors.push("Mobile number must be exactly 10 digits.");
+            }
+
+            if (!email) {
+                errors.push("Email ID is required.");
+            } else if (!/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)) {
+                errors.push("Email ID format is invalid.");
+            }
+
+            if (errors.length > 0) {
+                messageBox.innerHTML = errors.map(function(err) { return "<div>" + err + "</div>"; }).join("");
+                successBox.textContent = "";
+                return false;
+            }
+
+            messageBox.innerHTML = "";
+            successBox.textContent = "Congratulations " + name + "! Welcome to Space Research Organization.";
+            form.reset();
+            return false;
+        }
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <aside class="sidebar">
+            <div class="brand-block">
+                <img class="brand-logo" src="images/spacelogo.png" alt="Orion logo">
+                <div>
+                    <h2>ORION</h2>
+                    <p>Space Research</p>
+                </div>
+            </div>
+            <nav class="side-nav">
+                <a href="index.html"><i class="fa-solid fa-house"></i>Home</a>
+                <a href="spaceprojects.xml"><i class="fa-solid fa-satellite"></i>Missions</a>
+                <a class="active" href="registration.html"><i class="fa-solid fa-address-card"></i>Registration</a>
+                <a href="internship.html"><i class="fa-solid fa-flask-vial"></i>Internship</a>
+                <a href="operations.html"><i class="fa-solid fa-database"></i>CRUD</a>
+                <a href="login.html"><i class="fa-solid fa-user"></i>Login</a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <nav class="top-nav">
+                <ul class="top-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="spaceprojects.xml">Missions</a></li>
+                    <li><a class="active" href="registration.html">Registration</a></li>
+                    <li><a href="internship.html">Internship</a></li>
+                    <li><a href="operations.html">Operations CRUD</a></li>
+                    <li><a href="live-telemetry-frame.html">Live Telemetry (Frame)</a></li>
+                </ul>
+            </nav>
+            <section class="hero auth-wrap">
+                <p class="hero-kicker">Application Registration</p>
+                <h1>CADET <span>REGISTRATION</span></h1>
+                <div class="panel auth-card">
+                    <form id="registrationForm" onsubmit="return validateRegistrationForm(event)">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="mobile">Mobile Number</label>
+                            <input type="text" id="mobile" name="mobile" placeholder="10 digit mobile number">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email ID</label>
+                            <input type="text" id="email" name="email" placeholder="name@example.com">
+                        </div>
+                        <button class="btn-primary auth-submit" type="submit">Register</button>
+                    </form>
+                    <div id="registration-message" class="auth-warning" style="margin-top:10px;"></div>
+                    <div id="success-message" class="success-msg" style="margin-top:10px;"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>

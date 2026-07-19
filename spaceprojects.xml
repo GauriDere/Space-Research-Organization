@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="spaceprojects.css"?>
+<spaceOperations>
+    <header>Space Operations Log</header>
+    
+    <operation>
+        <id>SRO-1983</id>
+        <name>Project Mercury</name>
+        <date>1983-05-12</date>
+        <objective>Exploring Planet Mercury for life and elements for life creation</objective>
+        <status>Completed</status>
+    </operation>
+    
+    <operation>
+        <id>SRO-1986</id>
+        <name>Project Venus</name>
+        <date>1986-11-04</date>
+        <objective>Investigating Venus atmosphere dynamics</objective>
+        <status>Completed</status>
+    </operation>
+
+    <operation>
+        <id>SRO-2027</id>
+        <name>Lunar Habitat Alpha</name>
+        <date>2027-08-15</date>
+        <objective>Establishment of a permanent human presence on the Lunar South Pole.</objective>
+        <status>In Progress</status>
+    </operation>
+
+    <operation>
+        <id>SRO-2030</id>
+        <name>Mars Rover Curiosity II</name>
+        <date>2030-05-20</date>
+        <objective>Advanced geological sampling and water extraction.</objective>
+        <status>Planned</status>
+    </operation>
+
+    <operation>
+        <id>SRO-2035</id>
+        <name>Jupiter Orbiter</name>
+        <date>2035-11-11</date>
+        <objective>Analyze the atmosphere and magnetic fields of Jupiter.</objective>
+        <status>Planned</status>
+    </operation>
+
+    <footer>SRO Interstellar Database &#169; 2026</footer>
+</spaceOperations>

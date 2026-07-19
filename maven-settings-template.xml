@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 https://maven.apache.org/xsd/settings-1.2.0.xsd">
+
+  <!--
+    Usage:
+    1) Copy this file to: C:\Users\GAURI\.m2\settings.xml
+    2) Choose ONE mode:
+       - No proxy: keep <activeProxyMode>direct</activeProxyMode>
+       - Proxy:   change to <activeProxyMode>proxy</activeProxyMode>
+    3) Fill proxy host/port/user/pass if using proxy.
+    4) Save and rerun: mvn -U clean compile
+  -->
+
+  <localRepository>C:/Users/GAURI/.m2/repository</localRepository>
+  <interactiveMode>false</interactiveMode>
+
+  <mirrors>
+    <!-- Default Maven Central mirror -->
+    <mirror>
+      <id>central-direct</id>
+      <name>Maven Central</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <mirrorOf>central</mirrorOf>
+    </mirror>
+  </mirrors>
+
+  <profiles>
+    <!-- No-proxy / direct internet mode -->
+    <profile>
+      <id>direct</id>
+      <properties>
+        <java.net.useSystemProxies>false</java.net.useSystemProxies>
+        <https.protocols>TLSv1.2,TLSv1.3</https.protocols>
+        <maven.wagon.http.retryHandler.count>3</maven.wagon.http.retryHandler.count>
+      </properties>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <name>Maven Central</name>
+          <url>https://repo.maven.apache.org/maven2</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <name>Maven Central</name>
+          <url>https://repo.maven.apache.org/maven2</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+
+    <!-- Corporate proxy mode -->
+    <profile>
+      <id>proxy</id>
+      <properties>
+        <java.net.useSystemProxies>true</java.net.useSystemProxies>
+        <https.protocols>TLSv1.2,TLSv1.3</https.protocols>
+        <maven.wagon.http.retryHandler.count>3</maven.wagon.http.retryHandler.count>
+      </properties>
+      <repositories>
+        <repository>
+          <id>central</id>
+          <name>Maven Central</name>
+          <url>https://repo.maven.apache.org/maven2</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+      </repositories>
+      <pluginRepositories>
+        <pluginRepository>
+          <id>central</id>
+          <name>Maven Central</name>
+          <url>https://repo.maven.apache.org/maven2</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+  </profiles>
+
+  <!-- Activate one profile: direct OR proxy -->
+  <activeProfiles>
+    <activeProfile>direct</activeProfile>
+    <!-- <activeProfile>proxy</activeProfile> -->
+  </activeProfiles>
+
+  <proxies>
+    <!-- Keep this blocked disabled for direct mode -->
+    <proxy>
+      <id>corp-http</id>
+      <active>false</active>
+      <protocol>http</protocol>
+      <host>proxy.your-company.com</host>
+      <port>8080</port>
+      <nonProxyHosts>localhost|127.0.0.1|*.local|*.internal</nonProxyHosts>
+      <!-- Optional -->
+      <!-- <username>YOUR_PROXY_USER</username> -->
+      <!-- <password>YOUR_PROXY_PASSWORD</password> -->
+    </proxy>
+
+    <proxy>
+      <id>corp-https</id>
+      <active>false</active>
+      <protocol>https</protocol>
+      <host>proxy.your-company.com</host>
+      <port>8080</port>
+      <nonProxyHosts>localhost|127.0.0.1|*.local|*.internal</nonProxyHosts>
+      <!-- Optional -->
+      <!-- <username>YOUR_PROXY_USER</username> -->
+      <!-- <password>YOUR_PROXY_PASSWORD</password> -->
+    </proxy>
+  </proxies>
+
+  <servers>
+    <!-- Optional credentials for private repos
+    <server>
+      <id>your-private-repo-id</id>
+      <username>YOUR_USER</username>
+      <password>YOUR_PASS</password>
+    </server>
+    -->
+  </servers>
+
+</settings>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRO - Login</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script>
+        // Use prompt upon page load
+        window.onload = function() {
+            let codename = prompt("Authenticate Command: Enter your SRO Codename", "Guest");
+            if(codename != null && codename.trim() !== "") {
+                document.getElementById('welcome-msg').innerText = "Welcome back, Operative " + codename;
+            }
+        };
+
+        function validateLoginForm(event) {
+            event.preventDefault(); // Prevent actual submission to demonstrate JS Validation
+            let form = document.forms["loginForm"];
+            let username = form["sname"].value;
+            let password = form["password"].value;
+
+            // JS Validations
+            if(username == null || username.trim() === "") {
+                alert("ACCESS DENIED: Name field cannot be empty.");
+                return false;
+            }
+            if(password == null || password.trim() === "") {
+                alert("ACCESS DENIED: Password field cannot be empty.");
+                return false;
+            }
+            if(password.length < 6) {
+                alert("SECURITY ALERT: Password must be at least 6 characters long.");
+                return false;
+            }
+
+            // Success scenario: show themed popup
+            showAccessPopup(username);
+            return false;
+        }
+
+        function showAccessPopup(username) {
+            const popup = document.getElementById("access-popup");
+            const nameNode = document.getElementById("popup-username");
+            nameNode.textContent = username;
+            popup.classList.add("active");
+        }
+
+        function closeAccessPopup() {
+            const popup = document.getElementById("access-popup");
+            popup.classList.remove("active");
+        }
+    </script>
+</head>
+<body>
+    <div class="page-shell">
+        <aside class="sidebar">
+            <div class="brand-block">
+                <img class="brand-logo" src="images/spacelogo.png" alt="Orion logo">
+                <div>
+                    <h2>ORION</h2>
+                    <p>Space Research</p>
+                </div>
+            </div>
+            <nav class="side-nav">
+                <a href="index.html"><i class="fa-solid fa-house"></i>Home</a>
+                <a href="spaceprojects.xml"><i class="fa-solid fa-satellite"></i>Missions</a>
+                <a href="registration.html"><i class="fa-solid fa-address-card"></i>Registration</a>
+                <a href="internship.html"><i class="fa-solid fa-flask-vial"></i>Internship</a>
+                <a class="active" href="login.html"><i class="fa-solid fa-user"></i>Login</a>
+                <a href="operations.html"><i class="fa-solid fa-database"></i>CRUD</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <nav class="top-nav">
+                <ul class="top-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="spaceprojects.xml">Missions</a></li>
+                    <li><a href="registration.html">Registration</a></li>
+                    <li><a href="internship.html">Internship</a></li>
+                    <li><a href="operations.html">Operations CRUD</a></li>
+                    <li><a href="live-telemetry-frame.html">Live Telemetry (Frame)</a></li>
+                    <li><a class="active" href="login.html">Login</a></li>
+                </ul>
+            </nav>
+
+            <section class="hero auth-wrap">
+                <p class="hero-kicker">Secure Access</p>
+                <h1>MISSION <span>LOGIN</span></h1>
+                <div class="panel auth-card">
+                    <p id="welcome-msg" class="auth-note">Please authenticate</p>
+                    <form name="loginForm" onsubmit="return validateLoginForm(event)">
+                        <div class="form-group">
+                            <label for="sname">Name / Codename</label>
+                            <input type="text" id="sname" name="sname" placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Security Key</label>
+                            <input type="password" id="password" name="password" placeholder="Enter your password">
+                        </div>
+                        <input type="submit" value="Launch sequence (Login)" class="btn-primary auth-submit">
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="access-popup" class="access-popup">
+        <div class="access-popup-card">
+            <img src="images/spacelogo.png" alt="SRO Logo" class="access-popup-logo">
+            <h3>Access Granted</h3>
+            <p>Authorization complete for Operative <span id="popup-username"></span>.</p>
+            <button type="button" class="btn-primary" onclick="closeAccessPopup()">Continue</button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="internshipApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRO - Internship Application</title>
+    <!-- Include AngularJS 1.8.x -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <script>
+        var app = angular.module('internshipApp', []);
+
+        app.controller('MainController', function($scope) {
+            $scope.currentView = 'login'; // default view
+            $scope.registeredUsers = [];
+            $scope.currentUser = null;
+
+            $scope.regData = {};
+            $scope.loginData = {};
+
+            $scope.switchView = function(view) {
+                $scope.currentView = view;
+                $scope.message = "";
+            };
+
+            $scope.register = function() {
+                if($scope.regForm.$valid) {
+                    // Check if username exists
+                    var exists = $scope.registeredUsers.find(u => u.username === $scope.regData.username);
+                    if(exists) {
+                        $scope.message = "Registration failed: Username already taken.";
+                    } else {
+                        $scope.registeredUsers.push(angular.copy($scope.regData));
+                        $scope.message = "Registration successful! You can now log in.";
+                        $scope.regData = {}; // clear form
+                        $scope.regForm.$setPristine();
+                        $scope.switchView('login');
+                    }
+                }
+            };
+
+            $scope.login = function() {
+                var user = $scope.registeredUsers.find(u => u.username === $scope.loginData.username && u.password === $scope.loginData.password);
+                if(user) {
+                    $scope.currentUser = user;
+                    $scope.switchView('dashboard');
+                } else {
+                    $scope.message = "Login failed: Invalid credentials.";
+                }
+            };
+
+            $scope.logout = function() {
+                $scope.currentUser = null;
+                $scope.loginData = {};
+                $scope.switchView('login');
+            };
+        });
+    </script>
+    <style>
+        .error-msg { color: #ff7992; font-weight: 600; margin-bottom: 12px; }
+        .success-msg { color: #8cb3ff; font-weight: 600; margin-bottom: 12px; }
+        .ng-invalid.ng-dirty { border-color: #ff2b54; }
+    </style>
+</head>
+<body ng-controller="MainController">
+    <div class="page-shell">
+        <aside class="sidebar">
+            <div class="brand-block">
+                <img class="brand-logo" src="images/spacelogo.png" alt="Orion logo">
+                <div>
+                    <h2>ORION</h2>
+                    <p>Space Research</p>
+                </div>
+            </div>
+            <nav class="side-nav">
+                <a href="index.html"><i class="fa-solid fa-house"></i>Home</a>
+                <a href="spaceprojects.xml"><i class="fa-solid fa-satellite"></i>Missions</a>
+                <a href="registration.html"><i class="fa-solid fa-address-card"></i>Registration</a>
+                <a class="active" href="internship.html"><i class="fa-solid fa-flask-vial"></i>Internship</a>
+                <a href="login.html"><i class="fa-solid fa-user"></i>Login</a>
+                <a href="operations.html"><i class="fa-solid fa-database"></i>CRUD</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <nav class="top-nav">
+                <ul class="top-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="spaceprojects.xml">Missions</a></li>
+                    <li><a href="registration.html">Registration</a></li>
+                    <li><a class="active" href="internship.html">Internship</a></li>
+                    <li><a href="operations.html">Operations CRUD</a></li>
+                    <li><a href="live-telemetry-frame.html">Live Telemetry (Frame)</a></li>
+                    <li><a href="login.html">Login</a></li>
+                </ul>
+            </nav>
+
+            <section class="hero auth-wrap">
+                <p class="hero-kicker">Internship Operations</p>
+                <h1>CADET <span>PORTAL</span></h1>
+                <div class="panel auth-card">
+                    <div ng-show="message" ng-class="{'error-msg': message.includes('failed'), 'success-msg': message.includes('successful')}">
+                        {{ message }}
+                    </div>
+
+                    <div ng-show="currentView === 'login'">
+                        <h2 class="section-title">Internship Portal Login</h2>
+                        <form name="logForm" ng-submit="login()">
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" ng-model="loginData.username" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" ng-model="loginData.password" required>
+                            </div>
+                            <button type="submit" class="btn-primary auth-submit">Login</button>
+                        </form>
+                        <p class="auth-note">Not registered yet? <a href="#" ng-click="switchView('register')">Register here</a></p>
+                    </div>
+
+                    <div ng-show="currentView === 'register'">
+                        <h2 class="section-title">Internship Registration</h2>
+                        <form name="regForm" ng-submit="register()" novalidate>
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" name="fname" ng-model="regData.firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" name="lname" ng-model="regData.lastName" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" name="uname" ng-model="regData.username" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" name="pwd" ng-model="regData.password" minlength="4" required>
+                                <span class="auth-warning" ng-show="regForm.pwd.$dirty && regForm.pwd.$invalid">Password must be at least 4 characters.</span>
+                            </div>
+                            <button type="submit" class="btn-primary auth-submit" ng-disabled="regForm.$invalid">Register</button>
+                        </form>
+                        <p class="auth-note">Already registered? <a href="#" ng-click="switchView('login')">Login here</a></p>
+                    </div>
+
+                    <div ng-show="currentView === 'dashboard'">
+                        <h2 class="section-title">Welcome, {{currentUser.firstName}} {{currentUser.lastName}}!</h2>
+                        <p>Your application for the SRO Internship has been initiated.</p>
+                        <p><strong>Cadet Username:</strong> {{currentUser.username}}</p>
+                        <hr class="auth-divider">
+                        <button class="btn-secondary auth-submit" ng-click="logout()">Logout</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>

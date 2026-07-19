@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SRO - Space Research Organization</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        .mini-assignment-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 14px; margin-top: 14px; }
+        .mini-table { width: 100%; border-collapse: collapse; }
+        .mini-table th, .mini-table td { border: 1px solid rgba(65, 98, 188, 0.45); padding: 8px; }
+        .mini-table th { color: #8cb3ff; text-transform: uppercase; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <aside class="sidebar">
+            <div class="brand-block">
+                <img class="brand-logo" src="images/spacelogo.png" alt="Orion logo">
+                <div>
+                    <h2>ORION</h2>
+                    <p>Space Research</p>
+                </div>
+            </div>
+
+            <nav class="side-nav">
+                <a class="active" href="index.html"><i class="fa-solid fa-house"></i>Home</a>
+                <a href="spaceprojects.xml"><i class="fa-solid fa-satellite"></i>Missions</a>
+                <a href="#"><i class="fa-solid fa-flask-vial"></i>Research</a>
+                <a href="#"><i class="fa-solid fa-database"></i>Data Hub</a>
+                <a href="#"><i class="fa-solid fa-images"></i>Media</a>
+                <a href="#"><i class="fa-solid fa-calendar-days"></i>Events</a>
+                <a href="#"><i class="fa-solid fa-users"></i>About Us</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <nav class="top-nav">
+                <ul class="top-links">
+                    <li><a class="active" href="index.html">Home</a></li>
+                    <li><a href="spaceprojects.xml">Missions</a></li>
+                    <li><a href="registration.html">Registration</a></li>
+                    <li><a href="#">Research</a></li>
+                    <li><a href="#">Discoveries</a></li>
+                    <li><a href="#">News</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="operations.html">Operations CRUD</a></li>
+                    <li><a href="live-telemetry-frame.html">Live Telemetry (Frame)</a></li>
+                </ul>
+                <div class="top-actions">
+                    <button class="icon-btn" aria-label="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <a class="login-btn" href="login.html"><i class="fa-regular fa-user"></i>Login</a>
+                </div>
+            </nav>
+
+            <section class="hero">
+                <p class="hero-kicker">Exploring Beyond Limits</p>
+                <h1>ADVANCING HUMANITY<br>THROUGH <span>SPACE RESEARCH</span></h1>
+                <p class="hero-copy">Orion Space Research is dedicated to exploring the universe, advancing scientific knowledge, and inspiring the next generation of explorers.</p>
+                <div class="hero-cta">
+                    <a href="spaceprojects.xml" class="btn-primary">Explore Missions</a>
+                    <a href="live-telemetry-frame.html" class="btn-secondary">View Telemetry</a>
+                </div>
+            </section>
+
+            <section class="dashboard-grid">
+                <article class="panel telemetry-panel">
+                    <h3><i class="fa-solid fa-signal"></i>Live Space Data</h3>
+                    <div class="metrics">
+                        <div class="metric"><p>Earth Orbit</p><strong>7,850</strong><span>Active Satellites</span></div>
+                        <div class="metric"><p>Deep Space Signal</p><strong>98.7%</strong><span>Signal Strength</span></div>
+                        <div class="metric"><p>Cosmic Radiation</p><strong>2.45</strong><span>pSv/h</span></div>
+                        <div class="metric"><p>Distance to Mars</p><strong>225.3</strong><span>Million KM</span></div>
+                    </div>
+                </article>
+
+                <article class="panel feature-panel">
+                    <h3>Featured Discovery</h3>
+                    <div class="feature-content">
+                        <img src="https://images-assets.nasa.gov/image/PIA22081/PIA22081~small.jpg" alt="Galaxy discovery">
+                        <div>
+                            <h4>New Exoplanet Discovered</h4>
+                            <p>Scientists have detected a new exoplanet in the habitable zone of a nearby star system.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="panel mission-panel">
+                    <h3>Upcoming Missions</h3>
+                    <ul class="mission-list">
+                        <li><span>Mars Explorer</span><em>In Progress</em></li>
+                        <li><span>Europa Clipper</span><em>Scheduled</em></li>
+                        <li><span>Orion Space Telescope</span><em>Planned</em></li>
+                    </ul>
+                </article>
+            </section>
+
+            <section class="panel" style="margin-top: 14px;">
+                <h3>Mission Reference Board</h3>
+                <div class="mini-assignment-grid">
+                    <div>
+                        <table class="mini-table">
+                            <tr><th>Mission</th><th>Status</th></tr>
+                            <tr><td>Mercury</td><td>Completed</td></tr>
+                            <tr><td>Europa Clipper</td><td>Scheduled</td></tr>
+                            <tr><td>Orion Telescope</td><td>Planned</td></tr>
+                        </table>
+                        <ul style="margin:10px 0 0 18px;">
+                            <li><a href="spaceprojects.xml">View XML Mission Feed</a></li>
+                            <li><a href="registration.html">Open Registration Form</a></li>
+                            <li><a href="operations.html">Open Operations CRUD Console</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <p><strong>Image Link:</strong></p>
+                        <a href="https://eyes.nasa.gov" target="_blank" rel="noopener">
+                            <img src="https://images-assets.nasa.gov/image/PIA22081/PIA22081~small.jpg" alt="Space preview" style="width:100%; border-radius:10px; border:1px solid rgba(255,43,84,.45);">
+                        </a>
+                        <form action="login.html" method="get" style="margin-top:10px;">
+                            <label for="q">Quick Access</label>
+                            <input id="q" name="query" type="text" placeholder="Type mission code">
+                            <button class="btn-secondary" type="submit">Go</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
